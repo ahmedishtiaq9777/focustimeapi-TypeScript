@@ -1,0 +1,25 @@
+# POST http://localhost:8092/api/login
+# content-type: application/json
+
+# {
+#     "email": "ahmedishtiaq977@gmail.com",
+#     "password": "123456"
+# }
+
+
+# GET http://localhost:8092/api/tasks?page=1&limit=7
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMTMxNDMwLCJleHAiOjE3NjAxMzUwMzB9.qT5gO39pXjIkFh2QlVTZ-l2A2YmtrrIdmgOmnDQBJ3k
+
+# GET http://localhost:8092/api/tasksWithsearch?search=going
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMTMxNDMwLCJleHAiOjE3NjAxMzUwMzB9.qT5gO39pXjIkFh2QlVTZ-l2A2YmtrrIdmgOmnDQBJ3k
+
+
+POST http://localhost:8092/api/adduser
+content-type:application/json
+
+{
+    "name": "ahmed22",
+    "password": "123456",
+    "email":"ahmedishtiaq9766@gmail.com",
+     "role":"user"
+}
