@@ -5,6 +5,7 @@ import { createUser, getUserByEmail } from "../repositories/userRepository";
 import { JwtService } from "../services/jwtservice";
 import { AppError } from "../utils/AppError";
 import { User } from "../models/user";
+import { UserResponse } from "focustime_types";
 
 export const login = async (
   req: Request,
@@ -13,7 +14,7 @@ export const login = async (
 ) => {
   try {
     const { email, password } = req.body;
-    console.log("login");
+
     if (!email || !password) {
       return next(new AppError("Email and password are required", 400));
     }
@@ -22,9 +23,10 @@ export const login = async (
     if (!user) {
       return next(new AppError("Invalid credentials", 401));
     }
-    console.log("email:", email);
-    // console.log('password:',password);
-    console.log("Comparing:", password, user.dataValues.password);
+
+    const plainUser = user.get({ plain: true });
+
+    const { password: _, ...safeuser } = plainUser;
 
     const isMatch = await bcrypt.compare(password, user.dataValues.password);
     if (!isMatch) {
@@ -37,7 +39,7 @@ export const login = async (
       role: user.dataValues.role,
     });
 
-    return res.json({ token });
+    return res.json({ token, user: safeuser });
   } catch (err) {
     next(err);
   }

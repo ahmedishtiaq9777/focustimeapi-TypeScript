@@ -1,5 +1,5 @@
 /**
- * Redacts sensitive fields (like password and token) from request body
+ * Hiding sensitive fields (like password and token) from request body
  */
 export default function safeBody<T extends Record<string, any> | undefined>(
   body: T

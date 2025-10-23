@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
   dialectOptions: {
     options: {
       encrypt: false,
+      trustServerCertificate: true,
     },
   },
 });

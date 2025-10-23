@@ -44,7 +44,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("🚀 FocusTime API is running...");
 });
 
-// app.use(errorLogger);
+app.use(errorLogger);
 
 // ✅ Database connection
 sequelize

@@ -24,6 +24,7 @@ export async function createTaskService(
   let imageNametemp: string | null = null;
 
   if (file) {
+    console.log("file", file);
     imageNametemp = `${Date.now()}-${file.originalname}`;
     await uploadTaskImage(
       file.buffer,
@@ -82,6 +83,7 @@ export async function updateTaskService(
   file?: Express.Multer.File
 ): Promise<Task | null> {
   if (file) {
+    console.log("file:", file);
     const imageName = `${Date.now()}-${file.originalname}`;
     await uploadTaskImage(file.buffer, imageName, bucketName, file.mimetype);
     updates.image_url = imageName;
@@ -143,13 +145,17 @@ export async function getDashboardDataService(
   const upcomingTasks = await taskRepo.getUpcomingTasks();
   const importantTasks = await taskRepo.getImportantTasks();
 
+  // console.log("important tasks:", importantTasks);
   for (const task of [...upcomingTasks, ...importantTasks]) {
+    console.log("task.image url:", task);
     if (task.image_url) {
+      console.log("image_url:", task.image_url);
       const command = new GetObjectCommand({
         Bucket: bucketName,
         Key: task.image_url,
       });
       task.image_url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      console.log("after change :", task.image_url);
     }
   }
 

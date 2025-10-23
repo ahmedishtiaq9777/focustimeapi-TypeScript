@@ -32,7 +32,7 @@ export class JwtService {
     return decoded;
   }
 
-  // Logout by blacklisting the token
+  // blacklisting the token
   static async logout(token: string): Promise<void> {
     const decoded = jwt.decode(token) as JwtPayload | null;
     if (!decoded || !decoded.exp) throw new Error("Invalid token");
@@ -42,6 +42,16 @@ export class JwtService {
       token: token,
       expires_at: expiresAt,
     };
-    await addBlacklistedToken(tokenData);
+    try {
+      await addBlacklistedToken(tokenData);
+      console.log("Token blacklisted:", token);
+    } catch (error: any) {
+      if (error.name === "SequelizeUniqueConstraintError") {
+        console.log("Token already blacklisted — ignoring duplicate.");
+      } else {
+        console.error("Error blacklisting token:", error);
+        throw error;
+      }
+    }
   }
 }

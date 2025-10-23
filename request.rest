@@ -1,10 +1,10 @@
-# POST http://localhost:8092/api/login
-# content-type: application/json
+POST http://localhost:8092/api/login
+content-type: application/json
 
-# {
-#     "email": "ahmedishtiaq977@gmail.com",
-#     "password": "123456"
-# }
+{
+    "email": "ahmedishtiaq977@gmail.com",
+    "password": "123456"
+}
 
 
 # GET http://localhost:8092/api/tasks?page=1&limit=7
@@ -14,12 +14,34 @@
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMTMxNDMwLCJleHAiOjE3NjAxMzUwMzB9.qT5gO39pXjIkFh2QlVTZ-l2A2YmtrrIdmgOmnDQBJ3k
 
 
-POST http://localhost:8092/api/adduser
-content-type:application/json
+# POST http://localhost:8092/api/adduser
+# content-type:application/json
 
-{
-    "name": "ahmed22",
-    "password": "123456",
-    "email":"ahmedishtiaq9766@gmail.com",
-     "role":"user"
-}
+# {
+#     "name": "ahmed22",
+#     "password": "123456",
+#     "email":"ahmedishtiaq9766@gmail.com",
+#      "role":"user"
+# # }
+# GET http://localhost:8092/api/notifications
+#  Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwNjkxMTU5LCJleHAiOjE3NjA2OTQ3NTl9.2A5WBcZ-YWWjlwreGesg1jzWEAwiyGket4m9m6o0tx8
+
+# GET http://localhost:8092/api/getDashboardData
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwNzQ5NzIzLCJleHAiOjE3NjA3NTMzMjN9.72yycLudn7SNkOfx5uqY-uTiyZeHbk_LUI9uj3wrgVI
+
+# GET http://localhost:8092/api/tasks?page=1&limit=10
+#  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMDM3MTA2LCJleHAiOjE3NjEwNDA3MDZ9.-id8jEjXIb3NCpAL6wu7TeFoZcD10W9eANYDNsNArMk
+
+
+
+## Create Task
+# POST http://localhost:8092/api/tasks/addtask
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1lZGlzaHRpYXE5NzdAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMTQ0OTg2LCJleHAiOjE3NjExNDg1ODZ9.shswbI0J_3kYOQg5twDE4es4A3_ZoVD3lBiXRsf2PE0
+# Content-Type: multipart/form-data
+
+# # Form fields
+# title=Write documentation
+# description=Finish writing the API documentation for FocusTime
+# scheduled_for=2025-10-25T10:00:00.000Z
+# priority=High
+# user_id=1

@@ -26,6 +26,7 @@ export async function uploadTaskImage(
 
   const command = new PutObjectCommand(params);
   await s3.send(command);
+  console.log("done");
 }
 
 /**

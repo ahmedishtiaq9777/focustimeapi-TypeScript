@@ -18,6 +18,11 @@ export async function createUser(
       return next(new AppError("Name, email, and password are required", 400));
     }
 
+    const existingUser = await userRepo.getUserByEmail(email || "");
+    if (existingUser) {
+      return next(new AppError("Email already in use", 409));
+    }
+
     const user = req.body as UserCreationAttributes;
 
     const newUser = await userService.createUserService(user);

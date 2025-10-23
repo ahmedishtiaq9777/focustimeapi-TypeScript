@@ -9,7 +9,7 @@ const upload = multer();
 // middleware
 router.use(authenticateToken);
 
-router.post("/addtask2", upload.single("image"), Taskcontroller.createTask);
+router.post("/addtask", upload.single("image"), Taskcontroller.createTask);
 
 router.get("/tasks", Taskcontroller.getTasks);
 router.get("/tasksWithsearch", Taskcontroller.getTasksWithSearchController);

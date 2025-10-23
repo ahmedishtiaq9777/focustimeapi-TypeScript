@@ -9,11 +9,6 @@ export async function createUserService(
   data: UserCreationAttributes
 ): Promise<UserResponse> {
   try {
-    const existingUser = await userRepo.getUserByEmail(data.email || "");
-    if (existingUser) {
-      throw new Error("Email already in use");
-      //   AppError("Email already in use", 400);
-    }
     const hashedPassword = await bcrypt.hash(data.password, 10); // 10 salt rounds
     data.password = hashedPassword;
     const user = await userRepo.createUser(data);

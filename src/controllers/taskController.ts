@@ -3,7 +3,7 @@ import * as taskService from "../services/taskService";
 import { AppError } from "../utils/AppError";
 import { Task } from "../models";
 import * as notirepo from "../repositories/notificationRepository";
-import { TaskResponseDTO } from "focustime_types";
+import { CreateTaskDTO, TaskResponseDTO } from "focustime_types";
 
 export async function createTask(
   req: Request,
@@ -14,9 +14,18 @@ export async function createTask(
     const userId = req.user?.id;
 
     if (!userId) return next(new AppError("Unauthorized", 403));
+    const inputtask: CreateTaskDTO = req.body;
+    if (
+      !inputtask.title ||
+      !inputtask.description ||
+      !inputtask.scheduled_for ||
+      !inputtask.priority
+    ) {
+      return next(new AppError("Incomplete Fields", 400));
+    }
 
     const task: TaskResponseDTO = await taskService.createTaskService(
-      { ...req.body, user_id: userId },
+      { ...inputtask, user_id: userId },
       req.file
     );
 
@@ -37,7 +46,7 @@ export async function getTasksWithSearchController(
     if (!userId) return next(new AppError("Unauthorized", 403));
 
     const search = (req.query.search as string) || "";
-    console.log("search:", search);
+
     const tasks = await taskService.getTasksWithSearch(userId, search);
 
     res.json(tasks);

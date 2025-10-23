@@ -20,8 +20,7 @@ export async function authenticateToken(
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(" ")[1];
     console.log("path:", req.path);
-    // if (req.path === "/login") return next();
-
+    console.log("middlewahere");
     if (!token) throw new AppError("No token provided", 401);
     //blacklist check
     const isblacklist: boolean = await isTokenBlacklisted(token);
@@ -29,10 +28,22 @@ export async function authenticateToken(
       throw new AppError("Token is blacklisted (logged out)", 401);
 
     // verify token
-    const userPayload = await JwtService.verifyToken(token);
-    console.log("userPayload:", userPayload);
-    req.user = userPayload;
-    console.log("req.user:", req.user);
+
+    try {
+      const userPayload = await JwtService.verifyToken(token);
+      req.user = userPayload;
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.name === "TokenExpiredError") {
+          if (await isTokenBlacklisted(token)) {
+            throw new AppError("Token Expired and blacklisted", 403);
+          }
+
+          JwtService.logout(token); //blacklisting token
+          throw new AppError("Token Expired", 403);
+        }
+      }
+    }
 
     next();
   } catch (err) {

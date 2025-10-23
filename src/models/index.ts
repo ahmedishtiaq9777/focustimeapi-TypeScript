@@ -61,7 +61,7 @@ Notification.init(
 BlacklistedToken.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    token: { type: DataTypes.TEXT, allowNull: false },
+    token: { type: DataTypes.TEXT, allowNull: false, unique: true },
     expires_at: { type: DataTypes.DATE, allowNull: false },
     reason: { type: DataTypes.STRING(255) },
     blacklisted_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },

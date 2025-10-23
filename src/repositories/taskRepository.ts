@@ -79,19 +79,25 @@ export async function getUpcomingTasks(limit = 5): Promise<Task[]> {
   const nextWeek = new Date();
   nextWeek.setDate(today.getDate() + 7);
 
+  console.log("upcomming");
+  console.log("today:", today);
+  console.log("nextweek:", nextWeek);
   return await Task.findAll({
     where: {
       is_completed: false,
-      scheduled_for: { [Op.between]: [today, nextWeek] },
+      scheduled_for: { [Op.between]: [new Date(today), new Date(nextWeek)] },
     },
+    raw: true,
     order: [["scheduled_for", "ASC"]],
     limit,
   });
 }
 
 export async function getImportantTasks(limit = 5): Promise<Task[]> {
+  console.log("important");
   return await Task.findAll({
     where: { is_completed: false, priority: "Extreme" },
+    raw: true,
     order: [["scheduled_for", "ASC"]],
     limit,
   });
